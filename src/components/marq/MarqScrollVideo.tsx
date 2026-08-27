@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { PlayIcon } from "@/components/icons";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface MarqScrollVideoProps {
   src: string;
@@ -16,8 +17,13 @@ interface MarqScrollVideoProps {
  * view (mirrors the site's fixed scroll-play video). Optional centered overlay.
  */
 export function MarqScrollVideo({ src, title, subtitle, ctaLabel, ctaHref }: MarqScrollVideoProps) {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const displayTitle = title ?? t.scrollVideo.title;
+  const displaySubtitle = subtitle ?? t.scrollVideo.subtitle;
+  const displayCta = ctaLabel ?? t.scrollVideo.ctaLabel;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -47,17 +53,17 @@ export function MarqScrollVideo({ src, title, subtitle, ctaLabel, ctaHref }: Mar
         playsInline
         preload="metadata"
       />
-      {(title || subtitle) && (
+      {(displayTitle || displaySubtitle) && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-          {title && (
+          {displayTitle && (
             <h2 className="marq-display text-[40px] leading-[1.2] text-white/90 md:text-[58px]">
-              {title}
+              {displayTitle}
             </h2>
           )}
-          {subtitle && (
-            <p className="mt-3 text-[18px] font-medium text-white md:text-[22px]">{subtitle}</p>
+          {displaySubtitle && (
+            <p className="mt-3 text-[18px] font-medium text-white md:text-[22px]">{displaySubtitle}</p>
           )}
-          {ctaLabel && (
+          {displayCta && (
             ctaHref ? (
               <a
                 href={ctaHref}
@@ -65,7 +71,7 @@ export function MarqScrollVideo({ src, title, subtitle, ctaLabel, ctaHref }: Mar
                 rel="noopener noreferrer"
                 className="mt-8 inline-flex items-center gap-2 border border-white/80 px-7 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white hover:text-black cursor-pointer"
               >
-                {ctaLabel}
+                {displayCta}
                 <PlayIcon className="h-4 w-4" />
               </a>
             ) : (
@@ -73,7 +79,7 @@ export function MarqScrollVideo({ src, title, subtitle, ctaLabel, ctaHref }: Mar
                 type="button"
                 className="mt-8 inline-flex items-center gap-2 border border-white/80 px-7 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white hover:text-black cursor-pointer"
               >
-                {ctaLabel}
+                {displayCta}
                 <PlayIcon className="h-4 w-4" />
               </button>
             )

@@ -2,20 +2,22 @@ import type { Metadata } from "next";
 import { Oswald, Roboto } from "next/font/google";
 import "./globals.css";
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 const oswald = Oswald({
   variable: "--font-oswald",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
 });
 
 const roboto = Roboto({
   variable: "--font-roboto",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["300", "400", "500", "700", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "MARQ (Gen 2) COLLECTION | Garmin Singapore",
+  title: "MARQ (Gen 2) COLLECTION | Garmin Kazakhstan",
   description:
     "Seven luxury modern tool watches. The second generation of the MARQ Collection — Fused Carbon Fiber, Damascus Steel and Grade-5 Titanium. Where luxury and performance collide.",
   icons: {
@@ -38,7 +40,7 @@ export default function RootLayout({
       className={`${oswald.variable} ${roboto.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-black">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

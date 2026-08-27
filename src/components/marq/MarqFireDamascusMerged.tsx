@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronRightIcon } from "@/components/icons";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 /**
  * Merged Cinematic Scene: Flame Eruption -> Damascus MARQ Adventurer Watch Reveal
  * 
@@ -14,6 +16,7 @@ import { ChevronRightIcon } from "@/components/icons";
  * 4. Continues smoothly down into the next section.
  */
 export function MarqFireDamascusMerged() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -143,10 +146,10 @@ export function MarqFireDamascusMerged() {
             style={{ transform: `translateX(${textTranslateLeft}px)` }}
           >
             <h3 className="marq-display text-[26px] uppercase leading-tight md:text-[34px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              Damascus Steel Edition
+              {t.fireDamascus.edition}
             </h3>
             <p className="mt-3 text-[15px] font-medium uppercase tracking-[0.3em] text-white/90">
-              <span className="text-white/50">|</span>&nbsp;New&nbsp;<span className="text-white/50">|</span>
+              <span className="text-white/50">|</span>&nbsp;{t.fireDamascus.newBadge}&nbsp;<span className="text-white/50">|</span>
             </p>
           </div>
 
@@ -156,17 +159,17 @@ export function MarqFireDamascusMerged() {
             style={{ transform: `translateX(${textTranslateRight}px)` }}
           >
             <h2 className="font-heading text-[56px] font-normal uppercase leading-none text-white md:text-[68px] drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-              MARQ
+              {t.fireDamascus.brand}
             </h2>
             <p className="mt-2 text-[15px] font-medium uppercase tracking-[0.35em] text-white/90">
-              Adventurer
+              {t.fireDamascus.model}
             </p>
             <span className="mt-4 block h-px w-full bg-white/40" />
             <Link
               href="/p/1228429"
               className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-white transition-colors hover:text-white/70"
             >
-              Learn More
+              {t.fireDamascus.learnMore}
               <ChevronRightIcon className="h-4 w-4" />
             </Link>
           </div>

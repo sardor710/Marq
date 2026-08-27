@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * Section 1 — Hero Key Visual with Cinematic Intro Animation:
@@ -12,6 +13,7 @@ import Image from "next/image";
  *    - Watches lineup fades into view in the center foreground.
  */
 export function Marq2Hero() {
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,7 +56,7 @@ export function Marq2Hero() {
       >
         <Image
           src="/marq/images/product-name.png"
-          alt="MARQ Collection — The Second Generation"
+          alt={t.hero.titleAlt}
           width={1148}
           height={600}
           priority
@@ -79,7 +81,7 @@ export function Marq2Hero() {
       >
         <Image
           src="/marq/images/marq-collection.png"
-          alt="MARQ Collection watch lineup"
+          alt={t.hero.lineupAlt}
           width={1600}
           height={542}
           priority

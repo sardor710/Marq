@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 import { lifestyleSlides, accentColor } from "@/lib/marq";
+import { useLanguage } from "@/context/LanguageContext";
 
 const DURATION = 6000; // ms per slide
 
@@ -95,6 +96,7 @@ const SLIDE_KEYS = [
  * - Subtle Carousel Play/Pause button next to progress bars
  */
 export function MarqLifestyleCarousel() {
+  const { t } = useLanguage();
   const [active, setActive] = useState(0);
   const [tick, setTick] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
@@ -102,6 +104,13 @@ export function MarqLifestyleCarousel() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const count = lifestyleSlides.length;
+
+  const getEditionLabel = (edition: string) => {
+    if (edition.includes("TITANIUM")) return t.lifestyleCarousel.editions.titanium;
+    if (edition.includes("CARBON")) return t.lifestyleCarousel.editions.carbon;
+    if (edition.includes("DAMASCUS")) return t.lifestyleCarousel.editions.damascus;
+    return edition;
+  };
 
   const goTo = useCallback(
     (next: number) => {
@@ -150,7 +159,7 @@ export function MarqLifestyleCarousel() {
       {/* 3. Text / Edition Details Overlay (Left) */}
       <div className="absolute left-[6%] top-[24%] z-[10] max-w-[380px]">
         <p className="mb-2 text-[13px] font-medium uppercase tracking-[0.25em] text-white/80">
-          <span className="text-white/40">|</span> {slide.edition} <span className="text-white/40">|</span>
+          <span className="text-white/40">|</span> {getEditionLabel(slide.edition)} <span className="text-white/40">|</span>
         </p>
         <h2 className="font-heading text-[64px] font-normal uppercase leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:text-[76px]">
           MARQ
@@ -166,7 +175,7 @@ export function MarqLifestyleCarousel() {
           href={slide.href}
           className="inline-flex items-center gap-1.5 text-[15px] font-medium uppercase tracking-wider text-white transition-colors hover:text-white/70"
         >
-          Learn More
+          {t.lifestyleCarousel.learnMore}
           <ChevronRightIcon className="h-4 w-4" />
         </a>
       </div>
@@ -223,7 +232,7 @@ export function MarqLifestyleCarousel() {
       {/* 5. Navigation Arrows */}
       <button
         type="button"
-        aria-label="Previous Slide"
+        aria-label={t.lifestyleCarousel.prevSlide}
         onClick={() => goTo(active - 1)}
         className="absolute left-4 top-1/2 z-[20] -translate-y-1/2 rounded-full p-3 text-white/70 backdrop-blur-sm transition-all hover:bg-white/10 hover:text-white"
       >
@@ -231,7 +240,7 @@ export function MarqLifestyleCarousel() {
       </button>
       <button
         type="button"
-        aria-label="Next Slide"
+        aria-label={t.lifestyleCarousel.nextSlide}
         onClick={() => goTo(active + 1)}
         className="absolute right-4 top-1/2 z-[20] -translate-y-1/2 rounded-full p-3 text-white/70 backdrop-blur-sm transition-all hover:bg-white/10 hover:text-white"
       >
@@ -244,9 +253,9 @@ export function MarqLifestyleCarousel() {
         <button
           type="button"
           onClick={() => setAutoPlay(!autoPlay)}
-          className="flex items-center justify-center w-7 h-7 rounded-full bg-black/60 border border-white/30 text-white/80 hover:bg-white hover:text-black hover:border-white transition-all backdrop-blur-md shrink-0 shadow-lg"
-          title={autoPlay ? "Pause Carousel" : "Play Carousel"}
-          aria-label={autoPlay ? "Pause Carousel" : "Play Carousel"}
+          className="flex items-center justify-center w-7 h-7 rounded-full bg-black/60 border border-white/30 text-white/80 hover:bg-white hover:text-black hover:border-white transition-all backdrop-blur-md shrink-0 shadow-lg cursor-pointer"
+          title={autoPlay ? t.lifestyleCarousel.pauseCarousel : t.lifestyleCarousel.playCarousel}
+          aria-label={autoPlay ? t.lifestyleCarousel.pauseCarousel : t.lifestyleCarousel.playCarousel}
         >
           {autoPlay ? (
             <span className="text-[9px] font-mono font-bold tracking-tighter">❚❚</span>

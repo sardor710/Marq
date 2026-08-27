@@ -1,9 +1,22 @@
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+
 /** Section 10 — two short feature callouts (Sapphire crystal · AMOLED). */
 export function MarqFeatureCallouts() {
+  const { t } = useLanguage();
+
   const callouts = [
-    { title: "DOMED SAPPHIRE CRYSTAL LENS", subtitle: "Premium Scratch Resistance" },
-    { title: "AMOLED", subtitle: "Stunning display" },
+    {
+      title: t.featureCallouts.sapphireTitle,
+      subtitle: t.featureCallouts.sapphireSubtitle,
+    },
+    {
+      title: t.featureCallouts.amoledTitle,
+      subtitle: t.featureCallouts.amoledSubtitle,
+    },
   ];
+
   return (
     <section className="flex w-full items-center justify-center gap-16 bg-black py-20 md:gap-28">
       {callouts.map((c) => (

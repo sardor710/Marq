@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useReveal } from "@/hooks/useReveal";
 import { materialPanels } from "@/lib/marq";
+import { useLanguage } from "@/context/LanguageContext";
 import type { MarqMaterialPanel } from "@/types/marq";
 
 function Panel({ panel }: { panel: MarqMaterialPanel }) {
@@ -42,10 +43,30 @@ function Panel({ panel }: { panel: MarqMaterialPanel }) {
 
 /** Section 9 — three stacked material feature panels. */
 export function MarqMaterials() {
+  const { t } = useLanguage();
+
+  const panels: MarqMaterialPanel[] = [
+    {
+      ...materialPanels[0],
+      title: t.materials.damascus.title,
+      body: t.materials.damascus.body,
+    },
+    {
+      ...materialPanels[1],
+      title: t.materials.carbon.title,
+      body: t.materials.carbon.body,
+    },
+    {
+      ...materialPanels[2],
+      title: t.materials.titanium.title,
+      body: t.materials.titanium.body,
+    },
+  ];
+
   return (
     <section className="w-full bg-black">
-      {materialPanels.map((p) => (
-        <Panel key={p.title} panel={p} />
+      {panels.map((p) => (
+        <Panel key={p.background} panel={p} />
       ))}
     </section>
   );

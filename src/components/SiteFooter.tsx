@@ -1,4 +1,6 @@
-import { footerColumns, legalLinks } from "@/lib/content";
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
 import {
   GlobeIcon,
   FacebookIcon,
@@ -17,12 +19,14 @@ const socials = [
 ];
 
 export function SiteFooter() {
+  const { t, locale, setLocale } = useLanguage();
+
   return (
     <footer className="bg-black text-white">
       <div className="mx-auto max-w-[1200px] px-4 py-12">
         {/* Link columns */}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-          {footerColumns.map((col) => (
+          {t.footer.columns.map((col) => (
             <div key={col.heading}>
               <h3 className="g-heading mb-4 text-[15px] tracking-[0.06em] text-white">
                 {col.heading}
@@ -45,9 +49,13 @@ export function SiteFooter() {
 
         {/* Locale + socials */}
         <div className="mt-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <button className="flex items-center gap-2 text-[13px] font-medium text-white">
+          <button
+            onClick={() => setLocale(locale === "en" ? "ru" : "en")}
+            className="flex items-center gap-2 text-[13px] font-medium text-white transition-opacity hover:opacity-80 cursor-pointer"
+            title={t.header.langSwitch}
+          >
             <GlobeIcon className="h-4 w-4" />
-            Kazakhstan
+            {t.footer.country} ({locale.toUpperCase()})
           </button>
           <div className="flex items-center gap-5">
             {socials.map(({ label, Icon }) => (
@@ -62,9 +70,9 @@ export function SiteFooter() {
       {/* Legal bar */}
       <div className="border-t border-white/20">
         <div className="mx-auto flex max-w-[1200px] flex-col gap-3 px-4 py-5 text-[12px] text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>© Garmin Ltd. or its subsidiaries. All rights reserved.</p>
+          <p>{t.footer.copyright}</p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {legalLinks.map((link) => (
+            {t.footer.legalLinks.map((link) => (
               <li key={link.label}>
                 <a href={link.href} className="transition-colors hover:text-white">
                   {link.label}
@@ -77,3 +85,4 @@ export function SiteFooter() {
     </footer>
   );
 }
+

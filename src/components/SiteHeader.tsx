@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { topNav } from "@/lib/content";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   GarminLogo,
   SearchIcon,
   AccountIcon,
   CartIcon,
   ChevronRightIcon,
+  GlobeIcon,
 } from "@/components/icons";
 
 export function SiteHeader() {
+  const { locale, setLocale, t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -26,7 +28,7 @@ export function SiteHeader() {
         {/* Desktop nav */}
         <nav className="hidden lg:flex" onMouseLeave={() => setOpenIndex(null)}>
           <ul className="flex items-center gap-6">
-            {topNav.map((item, i) => (
+            {t.nav.map((item, i) => (
               <li
                 key={item.label}
                 className="flex h-16 items-center"
@@ -43,13 +45,13 @@ export function SiteHeader() {
           </ul>
 
           {/* Mega-menu dropdown */}
-          {openIndex !== null && topNav[openIndex]?.columns && (
+          {openIndex !== null && t.nav[openIndex]?.columns && (
             <div
               className="absolute inset-x-0 top-16 z-50 border-t border-neutral-200 bg-white shadow-[0_12px_24px_-8px_rgba(0,0,0,0.15)]"
               onMouseEnter={() => setOpenIndex(openIndex)}
             >
               <div className="mx-auto flex max-w-[1200px] gap-16 px-6 py-8">
-                {topNav[openIndex]!.columns!.map((col, ci) => (
+                {t.nav[openIndex]!.columns!.map((col, ci) => (
                   <div key={ci} className="min-w-[200px]">
                     {col.heading && (
                       <h3 className="g-heading mb-4 text-[13px] tracking-[0.08em] text-black">
@@ -77,24 +79,56 @@ export function SiteHeader() {
           )}
         </nav>
 
-        {/* Right utility icons */}
-        <div className="flex items-center gap-4">
-          <button aria-label="Search" className="p-1 text-black hover:text-[#007cc3]">
+        {/* Right utility icons & Language Switcher */}
+        <div className="flex items-center gap-3 md:gap-4">
+          {/* Language Switcher */}
+          <div
+            className="flex items-center rounded-full bg-neutral-100 p-0.5 border border-neutral-200 text-[11px] font-semibold tracking-wider"
+            role="group"
+            aria-label={t.header.langSwitch}
+          >
+            <button
+              type="button"
+              onClick={() => setLocale("en")}
+              className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                locale === "en"
+                  ? "bg-black text-white shadow-sm"
+                  : "text-neutral-600 hover:text-black"
+              }`}
+              aria-pressed={locale === "en"}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLocale("ru")}
+              className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                locale === "ru"
+                  ? "bg-black text-white shadow-sm"
+                  : "text-neutral-600 hover:text-black"
+              }`}
+              aria-pressed={locale === "ru"}
+            >
+              RU
+            </button>
+          </div>
+
+          <button aria-label={t.header.search} className="p-1 text-black hover:text-[#007cc3] cursor-pointer">
             <SearchIcon className="h-5 w-5" />
           </button>
-          <button aria-label="Account" className="p-1 text-black hover:text-[#007cc3]">
+          <button aria-label={t.header.account} className="p-1 text-black hover:text-[#007cc3] cursor-pointer">
             <AccountIcon className="h-5 w-5" />
           </button>
-          <button aria-label="Cart" className="relative p-1 text-black hover:text-[#007cc3]">
+          <button aria-label={t.header.cart} className="relative p-1 text-black hover:text-[#007cc3] cursor-pointer">
             <CartIcon className="h-5 w-5" />
           </button>
 
           {/* Mobile hamburger button */}
           <button
             type="button"
-            aria-label="Toggle mobile menu"
+            aria-label={t.header.menu}
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
+            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden cursor-pointer"
           >
             <span
               className={`block h-0.5 w-5 bg-black transition-transform ${
@@ -118,8 +152,36 @@ export function SiteHeader() {
       {/* Mobile nav drawer */}
       {mobileOpen && (
         <div className="border-t border-neutral-200 bg-white px-4 py-4 lg:hidden">
+          {/* Mobile Language Switcher */}
+          <div className="mb-4 flex items-center justify-between border-b border-neutral-100 pb-3">
+            <span className="flex items-center gap-2 text-[13px] font-medium text-neutral-600">
+              <GlobeIcon className="h-4 w-4" />
+              {t.header.langSwitch}:
+            </span>
+            <div className="flex items-center rounded-full bg-neutral-100 p-0.5 border border-neutral-200 text-[11px] font-semibold">
+              <button
+                type="button"
+                onClick={() => setLocale("en")}
+                className={`px-3 py-1 rounded-full ${
+                  locale === "en" ? "bg-black text-white" : "text-neutral-600"
+                }`}
+              >
+                English (EN)
+              </button>
+              <button
+                type="button"
+                onClick={() => setLocale("ru")}
+                className={`px-3 py-1 rounded-full ${
+                  locale === "ru" ? "bg-black text-white" : "text-neutral-600"
+                }`}
+              >
+                Русский (RU)
+              </button>
+            </div>
+          </div>
+
           <ul className="space-y-3">
-            {topNav.map((item) => (
+            {t.nav.map((item) => (
               <li key={item.label}>
                 <Link
                   href={item.href}

@@ -67,14 +67,6 @@ export const footerColumns = [
       { label: "Connect IQ", href: "#" },
     ],
   },
-  {
-    heading: "Partnerships",
-    links: [
-      { label: "Aviation Solutions", href: "#" },
-      { label: "Marine Solutions", href: "#" },
-      { label: "Developer Programs", href: "#" },
-    ],
-  },
 ];
 
 export const legalLinks = [

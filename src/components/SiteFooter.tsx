@@ -21,7 +21,7 @@ export function SiteFooter() {
     <footer className="bg-black text-white">
       <div className="mx-auto max-w-[1200px] px-4 py-12">
         {/* Link columns */}
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
           {footerColumns.map((col) => (
             <div key={col.heading}>
               <h3 className="g-heading mb-4 text-[15px] tracking-[0.06em] text-white">
@@ -47,7 +47,7 @@ export function SiteFooter() {
         <div className="mt-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <button className="flex items-center gap-2 text-[13px] font-medium text-white">
             <GlobeIcon className="h-4 w-4" />
-            Singapore
+            Kazakhstan
           </button>
           <div className="flex items-center gap-5">
             {socials.map(({ label, Icon }) => (

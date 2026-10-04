@@ -231,8 +231,9 @@
 /* Scroll-into-view fade-up (toggled via .is-visible from IntersectionObserver) */
 .marq-reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(32px);
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 .marq-reveal.is-visible {
   opacity: 1;
@@ -254,3 +255,32 @@
   from { width: 0%; }
   to { width: 100%; }
 }
+
+/* Nonstop horizontal cloud scrolling animation in hero (moving left in continuous infinite loop) */
+@keyframes scrollbg {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: -3000px 0px;
+  }
+}
+
+.marq-cloud-scroll {
+  background-image: url(/marq/images/cloud.jpg);
+  background-repeat: repeat-x;
+  background-size: 3000px 844px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 580px;
+  width: 100%;
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  animation: scrollbg 90s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+  will-change: background-position;
+}
+

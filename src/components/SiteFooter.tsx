@@ -22,33 +22,10 @@ export function SiteFooter() {
   const { t, locale, setLocale } = useLanguage();
 
   return (
-    <footer className="bg-black text-white">
-      <div className="mx-auto max-w-[1200px] px-4 py-12">
-        {/* Link columns */}
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-          {t.footer.columns.map((col) => (
-            <div key={col.heading}>
-              <h3 className="g-heading mb-4 text-[15px] tracking-[0.06em] text-white">
-                {col.heading}
-              </h3>
-              <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-[13px] text-neutral-300 transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
+    <footer className="w-full bg-black text-white border-t border-white/10 py-6">
+      <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-4 sm:flex-row">
         {/* Locale + socials */}
-        <div className="mt-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-6">
           <button
             onClick={() => setLocale(locale === "en" ? "ru" : "en")}
             className="flex items-center gap-2 text-[13px] font-medium text-white transition-opacity hover:opacity-80 cursor-pointer"
@@ -57,29 +34,18 @@ export function SiteFooter() {
             <GlobeIcon className="h-4 w-4" />
             {t.footer.country} ({locale.toUpperCase()})
           </button>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4">
             {socials.map(({ label, Icon }) => (
               <a key={label} href="#" aria-label={label} className="text-white transition-opacity hover:opacity-70">
-                <Icon className="h-5 w-5" />
+                <Icon className="h-4 w-4" />
               </a>
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Legal bar */}
-      <div className="border-t border-white/20">
-        <div className="mx-auto flex max-w-[1200px] flex-col gap-3 px-4 py-5 text-[12px] text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
+        {/* Copyright & Legal */}
+        <div className="flex flex-col items-center sm:items-end gap-1 text-[12px] text-neutral-400">
           <p>{t.footer.copyright}</p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {t.footer.legalLinks.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} className="transition-colors hover:text-white">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </footer>

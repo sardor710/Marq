@@ -22,6 +22,7 @@ export function MarqFireDamascusMerged() {
 
   // Scroll progress from 0.0 (top entered) to 1.0 (bottom reached)
   const [progress, setProgress] = useState(0);
+  const autoTransitionTriggered = useRef(false);
 
   useEffect(() => {
     let ticking = false;
@@ -45,6 +46,18 @@ export function MarqFireDamascusMerged() {
           if (videoRef.current && videoRef.current.duration) {
             const videoProgress = Math.min(1, clamped / 0.65);
             videoRef.current.currentTime = videoRef.current.duration * videoProgress;
+          }
+
+          // Gentle automated transition to Block 4 (Lifestyle Carousel) when scrub reaches end
+          if (clamped >= 0.96 && !autoTransitionTriggered.current) {
+            autoTransitionTriggered.current = true;
+            const nextEl = document.getElementById("product");
+            if (nextEl) {
+              nextEl.scrollIntoView({ behavior: "smooth" });
+            }
+          } else if (clamped < 0.8) {
+            // Reset when user scrolls back up
+            autoTransitionTriggered.current = false;
           }
 
           ticking = false;

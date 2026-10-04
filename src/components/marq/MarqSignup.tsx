@@ -8,7 +8,7 @@ export function MarqSignup() {
   const { t } = useLanguage();
 
   return (
-    <section className="w-full bg-white px-6 py-20 text-center">
+    <section className="snap-section relative flex h-screen min-h-screen w-full flex-col items-center justify-center bg-white px-6 py-20 text-center">
       <h2 className="g-heading text-[26px] tracking-[0.02em] text-neutral-800 md:text-[30px]">
         {t.signup.heading}
       </h2>

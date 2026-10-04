@@ -13,7 +13,6 @@ import { MarqFeatureCallouts } from "@/components/marq/MarqFeatureCallouts";
 import { MarqBands } from "@/components/marq/MarqBands";
 import { MarqLegacy } from "@/components/marq/MarqLegacy";
 import { MarqProductCarousel } from "@/components/marq/MarqProductCarousel";
-import { MarqSignup } from "@/components/marq/MarqSignup";
 import { MarqScrollVideo } from "@/components/marq/MarqScrollVideo";
 
 export const metadata: Metadata = {
@@ -43,7 +42,6 @@ export default function HomePage() {
         <MarqBands />
         <MarqLegacy />
         <MarqProductCarousel />
-        <MarqSignup />
       </main>
       <SiteFooter />
     </div>

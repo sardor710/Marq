@@ -9,7 +9,6 @@ import { useLanguage } from "@/context/LanguageContext";
 const DURATION = 6000; // ms per slide
 
 interface ModelSettings {
-  watchWidth: number; // in px
   watchLeft: number; // in %
   watchBottom: number; // in px
   videoSize: number; // in %
@@ -20,57 +19,50 @@ interface ModelSettings {
 // Precision tuned coordinates per model
 const MODEL_SETTINGS: Record<string, ModelSettings> = {
   CAPTAIN: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 53.2,
     videoTop: 50.4,
     videoLeft: 51.9,
   },
   GOLFER_CARBON: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 52.6,
     videoTop: 47.0,
     videoLeft: 50.6,
   },
   ATHLETE_CARBON: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 52.0,
     videoTop: 54.4,
     videoLeft: 49.7,
   },
   GOLFER_2: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 53.4,
     videoTop: 50.5,
     videoLeft: 51.2,
   },
   ATHLETE_2: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 56.8,
     videoTop: 53.5,
     videoLeft: 51.7,
   },
   ADVENTURER: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 56.2,
     videoTop: 48.3,
     videoLeft: 51.7,
   },
   AVIATOR: {
-    watchWidth: 380,
-    watchLeft: 27,
-    watchBottom: 60,
+    watchLeft: 28,
+    watchBottom: 35,
     videoSize: 54.6,
     videoTop: 50.8,
     videoLeft: 52.3,
@@ -141,7 +133,7 @@ export function MarqLifestyleCarousel() {
   const currentSettings = MODEL_SETTINGS[slideKey] || MODEL_SETTINGS.CAPTAIN;
 
   return (
-    <section id="product" className="relative h-[893px] w-full overflow-hidden bg-black select-none">
+    <section id="product" className="relative h-screen min-h-screen w-full overflow-hidden bg-black select-none">
       {/* 1. Lifestyle Background Image per Slide (Crossfading) */}
       {lifestyleSlides.map((s, i) => (
         <div
@@ -180,17 +172,15 @@ export function MarqLifestyleCarousel() {
         </a>
       </div>
 
-      {/* 4. Watch with Calibrated Coordinates & AMOLED Dial Video */}
+      {/* 4. Watch with Calibrated Coordinates & AMOLED Dial Video — Sized up to half of screen */}
       <div
-        className="absolute z-[8] flex items-end justify-center transition-all duration-75"
+        className="absolute z-[8] flex items-end justify-center transition-all duration-75 max-sm:left-1/2 max-sm:-translate-x-1/2"
         style={{
           bottom: `${currentSettings.watchBottom}px`,
           left: `${currentSettings.watchLeft}%`,
-          width: `${currentSettings.watchWidth}px`,
-          maxWidth: `${currentSettings.watchWidth}px`,
         }}
       >
-        <div className="relative flex items-center justify-center w-full aspect-[600/850]">
+        <div className="relative flex items-center justify-center h-[74vh] max-h-[800px] min-h-[460px] w-auto max-w-[48vw] aspect-[600/850]">
           {/* Watch Body & Casing Base */}
           <Image
             key={slide.watch}

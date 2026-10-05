@@ -20,12 +20,6 @@ export function MarqSubNav() {
           >
             {t.subNav.intro}
           </Link>
-          <Link
-            href="#legacy"
-            className="hidden text-[13px] font-medium uppercase tracking-[0.06em] text-white/60 transition-colors hover:text-white sm:inline"
-          >
-            {t.subNav.legacy}
-          </Link>
           <a
             href="#collection"
             className="g-btn g-btn--outline-light text-[12px]"

@@ -11,7 +11,6 @@ import { MarqDesign } from "@/components/marq/MarqDesign";
 import { MarqMaterials } from "@/components/marq/MarqMaterials";
 import { MarqFeatureCallouts } from "@/components/marq/MarqFeatureCallouts";
 import { MarqBands } from "@/components/marq/MarqBands";
-import { MarqLegacy } from "@/components/marq/MarqLegacy";
 import { MarqProductCarousel } from "@/components/marq/MarqProductCarousel";
 import { MarqScrollVideo } from "@/components/marq/MarqScrollVideo";
 
@@ -40,7 +39,6 @@ export default function HomePage() {
         <MarqMaterials />
         <MarqFeatureCallouts />
         <MarqBands />
-        <MarqLegacy />
         <MarqProductCarousel />
       </main>
       <SiteFooter />
